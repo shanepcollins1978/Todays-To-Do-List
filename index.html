@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#1f5bbd" />
+  <title>Shane's Today To-Do List</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="icon.svg" type="image/svg+xml" />
+</head>
+<body>
+  <main class="app">
+    <section class="card hero-card">
+      <p class="eyebrow">Daily Planner</p>
+      <h1>Shane's Today To-Do List</h1>
+      <p class="intro">Type a task and press Return. Tap a circle to complete it. Drag tasks to reorder them.</p>
+
+      <div class="progress-wrap" aria-live="polite">
+        <div class="progress-topline">
+          <span id="progressText">Today's Progress: 0 / 0 Complete</span>
+          <span id="progressPercent">0%</span>
+        </div>
+        <div class="progress-bar" aria-hidden="true">
+          <div id="progressFill" class="progress-fill"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card list-card">
+      <div class="section-header">
+        <h2>Today's List</h2>
+        <span id="taskCount" class="count-pill">0</span>
+      </div>
+
+      <div class="add-row">
+        <input id="taskInput" type="text" placeholder="Add a task, then press Return" autocomplete="off" />
+        <button id="addTaskBtn" class="small-btn" type="button">Add</button>
+      </div>
+
+      <div id="taskList" class="task-list"></div>
+      <p class="save-status" id="saveStatus">Auto-save is on.</p>
+    </section>
+
+    <section class="actions">
+      <button id="clearCompletedBtn" class="secondary-btn">Clear Completed</button>
+      <button id="clearAllBtn" class="danger-btn">Clear All</button>
+      <button id="emailBtn" class="email-btn">Email to Me</button>
+      <button id="textBtn" class="text-btn">Text to Me</button>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
