@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#174ea6" />
+  <title>Shane's Today To-Do List</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+  <link rel="icon" href="icon-192.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <main class="app">
+    <header class="hero">
+      <div class="icon-badge">✓</div>
+      <div>
+        <p class="eyebrow">Daily Focus App</p>
+        <h1>Shane's Today To-Do List</h1>
+        <p class="subhead">Capture the few things that matter today, then email or text the list to yourself.</p>
+      </div>
+    </header>
+
+    <section class="panel">
+      <h2>Today's List</h2>
+      <p class="hint">Type anything you want. Use bullets, numbers, reminders, errands, or work priorities.</p>
+
+      <textarea id="todoList" placeholder="Example:
+1. Review client notes
+2. 7-minute workout
+3. Pick up groceries
+4. Plan Disneyland ride order"></textarea>
+
+      <div class="button-grid">
+        <button class="primary" id="saveButton">Save List</button>
+        <button class="secondary" id="clearButton">Clear List</button>
+        <a class="success button-link" id="emailButton" href="#">Email to Me</a>
+        <a class="blue button-link" id="textButton" href="#">Text to Me</a>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Top 3 Priorities</h2>
+      <p class="hint">Use this section for the three things that would make today feel successful.</p>
+
+      <div class="priority-list">
+        <input id="priority1" type="text" placeholder="#1 priority" />
+        <input id="priority2" type="text" placeholder="#2 priority" />
+        <input id="priority3" type="text" placeholder="#3 priority" />
+      </div>
+    </section>
+
+    <section class="panel two-column">
+      <div>
+        <h2>Quick Categories</h2>
+        <div class="chips">
+          <button class="chip" data-add="Work: ">Work</button>
+          <button class="chip" data-add="Family: ">Family</button>
+          <button class="chip" data-add="Health: ">Health</button>
+          <button class="chip" data-add="Errand: ">Errand</button>
+          <button class="chip" data-add="Call: ">Call</button>
+          <button class="chip" data-add="Follow up: ">Follow Up</button>
+        </div>
+      </div>
+
+      <div>
+        <h2>Daily Reset</h2>
+        <p class="hint">Use this at the start or end of the day.</p>
+        <button class="secondary full-width" id="newDayButton">Start a New Day</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Simple Notes</h2>
+      <textarea id="notes" class="small-textarea" placeholder="Extra notes, reminders, or ideas..."></textarea>
+    </section>
+
+    <footer>
+      <p>Saved locally on this device. Email and text open your phone's built-in apps.</p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
