@@ -1,4 +1,4 @@
-const STORAGE_KEY = "shanesTodayTodoListV3";
+const STORAGE_KEY = "shanesTodayTodoListV4";
 const EMAIL_TO = "shanepcollins1978@gmail.com";
 const TEXT_TO = "6022281134";
 
@@ -49,6 +49,7 @@ function makeId() {
 function saveState() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   saveStatus.textContent = "Saved automatically.";
+
   clearTimeout(window.saveStatusTimer);
   window.saveStatusTimer = setTimeout(() => {
     saveStatus.textContent = "Auto-save is on.";
@@ -59,7 +60,12 @@ function addTask() {
   const text = taskInput.value.trim();
   if (!text) return;
 
-  state.tasks.push({ id: makeId(), text, completed: false });
+  state.tasks.push({
+    id: makeId(),
+    text,
+    completed: false
+  });
+
   taskInput.value = "";
   saveState();
   render();
@@ -76,7 +82,10 @@ function render() {
     return;
   }
 
-  state.tasks.forEach(task => taskList.appendChild(createTaskElement(task)));
+  state.tasks.forEach(task => {
+    taskList.appendChild(createTaskElement(task));
+  });
+
   updateProgress();
 }
 
@@ -115,11 +124,15 @@ function createTaskElement(task) {
   checkBtn.type = "button";
   checkBtn.textContent = task.completed ? "✓" : "";
   checkBtn.setAttribute("aria-label", "Mark complete");
+
   checkBtn.addEventListener("click", () => {
     task.completed = !task.completed;
     saveState();
     render();
   });
+
+  const textWrap = document.createElement("div");
+  textWrap.className = "task-text-wrap";
 
   const text = document.createElement("div");
   text.className = "task-text";
@@ -140,17 +153,21 @@ function createTaskElement(task) {
     }
   });
 
+  textWrap.appendChild(text);
+
   const deleteBtn = document.createElement("button");
   deleteBtn.className = "delete-task";
   deleteBtn.type = "button";
   deleteBtn.textContent = "Remove";
+
   deleteBtn.addEventListener("click", () => {
     state.tasks = state.tasks.filter(item => item.id !== task.id);
     saveState();
     render();
   });
 
-  item.append(handle, checkBtn, text, deleteBtn);
+  item.append(handle, checkBtn, textWrap, deleteBtn);
+
   return item;
 }
 
@@ -159,10 +176,12 @@ function moveTask(fromId, toId) {
 
   const fromIndex = state.tasks.findIndex(task => task.id === fromId);
   const toIndex = state.tasks.findIndex(task => task.id === toId);
+
   if (fromIndex < 0 || toIndex < 0) return;
 
   const [movedTask] = state.tasks.splice(fromIndex, 1);
   state.tasks.splice(toIndex, 0, movedTask);
+
   saveState();
   render();
 }
@@ -172,7 +191,9 @@ function updateProgress() {
   const complete = state.tasks.filter(task => task.completed).length;
   const percent = total ? Math.round((complete / total) * 100) : 0;
 
-  document.getElementById("progressText").textContent = `Today's Progress: ${complete} / ${total} Complete`;
+  document.getElementById("progressText").textContent =
+    `Today's Progress: ${complete} / ${total} Complete`;
+
   document.getElementById("progressPercent").textContent = `${percent}%`;
   document.getElementById("progressFill").style.width = `${percent}%`;
 }
@@ -190,12 +211,14 @@ function buildMessage() {
 function emailList() {
   const subject = encodeURIComponent("Shane's Today To-Do List");
   const body = encodeURIComponent(buildMessage());
+
   window.location.href = `mailto:${EMAIL_TO}?subject=${subject}&body=${body}`;
 }
 
 function textList() {
   const body = encodeURIComponent(buildMessage());
   const separator = /iPad|iPhone|iPod/.test(navigator.userAgent) ? "&" : "?";
+
   window.location.href = `sms:${TEXT_TO}${separator}body=${body}`;
 }
 
